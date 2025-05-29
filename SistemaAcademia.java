@@ -145,3 +145,137 @@ public class SistemaAcademia {
 
         System.out.println("Aluno modificado.");
     }
+
+// parte de Maysa Continuação do código
+static void excluirAluno() {
+    System.out.println("ID do aluno a excluir:");
+    String id = scanner.nextLine();
+    Aluno aluno = buscarAlunoPorId(id);
+    if(aluno == null) {
+        System.out.println("Aluno não encontrado.");
+        return;
+    }
+    alunos.remove(aluno);
+    System.out.println("Aluno excluído.");
+}
+
+static void cadastrarPlano() {
+    System.out.println("ID do plano:");
+    String id = scanner.nextLine();
+    if(buscarPlanoPorId(id) != null) {
+        System.out.println("Plano com esse ID já existe.");
+        return;
+    }
+    System.out.println("Nome do plano:");
+    String nome = scanner.nextLine();
+    System.out.println("Tipo do plano:");
+    String tipo = scanner.nextLine();
+    System.out.println("Preço do plano:");
+    double preco = Double.parseDouble(scanner.nextLine());
+    System.out.println("Plano ativo? (true/false):");
+    boolean ativo = Boolean.parseBoolean(scanner.nextLine());
+
+    planos.add(new Plano(id, nome, tipo, preco, ativo));
+    System.out.println("Plano cadastrado.");
+}
+
+static void modificarPlano() {
+    System.out.println("ID do plano a modificar:");
+    String id = scanner.nextLine();
+    Plano plano = buscarPlanoPorId(id);
+    if(plano == null) {
+        System.out.println("Plano não encontrado.");
+        return;
+    }
+    System.out.println("Novo nome:");
+    plano.setNome(scanner.nextLine());
+    System.out.println("Novo tipo:");
+    plano.setTipo(scanner.nextLine());
+    System.out.println("Novo preço:");
+    plano.setPreco(Double.parseDouble(scanner.nextLine()));
+    System.out.println("Plano ativo? (true/false):");
+    plano.setAtivo(Boolean.parseBoolean(scanner.nextLine()));
+    System.out.println("Plano modificado.");
+}
+
+static void excluirPlano() {
+    System.out.println("ID do plano a excluir:");
+    String id = scanner.nextLine();
+    Plano plano = buscarPlanoPorId(id);
+    if(plano == null) {
+        System.out.println("Plano não encontrado.");
+        return;
+    }
+    planos.remove(plano);
+    System.out.println("Plano excluído.");
+}
+
+static void consultarAlunos() {
+    System.out.println("Filtro: digite nome ou deixe vazio para listar todos:");
+    String filtro = scanner.nextLine().toLowerCase();
+
+    System.out.println("Alunos encontrados:");
+    for(Aluno a : alunos) {
+        if (filtro.isEmpty() || a.getNome().toLowerCase().contains(filtro)) {
+            System.out.println(a);
+        }
+    }
+}
+
+static void consultarPlanos() {
+    System.out.println("Filtro por status ativo? (true/false) ou vazio para todos:");
+    String filtro = scanner.nextLine();
+
+    System.out.println("Planos encontrados:");
+    for(Plano p : planos) {
+        if(filtro.isEmpty() || Boolean.toString(p.isAtivo()).equalsIgnoreCase(filtro)) {
+            System.out.println(p);
+        }
+    }
+}
+
+
+static void criarOuAtualizarFicha() {
+    System.out.println("ID do aluno para criar/atualizar ficha:");
+    String id = scanner.nextLine();
+    Aluno aluno = buscarAlunoPorId(id);
+    if(aluno == null) {
+        System.out.println("Aluno não encontrado.");
+        return;
+    }
+
+    System.out.println("Descrição da ficha:");
+    String desc = scanner.nextLine();
+
+    Ficha ficha = aluno.getFicha();
+    if(ficha == null) {
+        ficha = new Ficha("ficha_" + id, desc);
+        aluno.setFicha(ficha);
+        System.out.println("Ficha criada.");
+    } else {
+        ficha.setDescricao(desc);
+        System.out.println("Ficha atualizada.");
+    }
+}
+
+static Aluno buscarAlunoPorId(String id) {
+    for(Aluno a : alunos) {
+        if(a.getId().equals(id)) return a;
+    }
+    return null;
+}
+
+static Plano buscarPlanoPorId(String id) {
+    for(Plano p : planos) {
+        if(p.getId().equals(id)) return p;
+    }
+    return null;
+}
+
+static void listarPlanos(boolean mostrarAtivos) {
+    for(Plano p : planos) {
+        if(!mostrarAtivos || p.isAtivo())
+            System.out.println(p.getId() + ": " + p.getNome() + " (" + p.getTipo() + ") - R$ " + p.getPreco());
+    }
+ }
+}
