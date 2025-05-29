@@ -26,11 +26,10 @@ class Aluno {
 
     @Override
     public String toString() {
-        return "Aluno{" +
-                "id='" + id + '\'' +
-                ", nome='" + nome + '\'' +
-                ", idade=" + idade +
-                ", plano=" + (plano != null ? plano.getNome() : "Nenhum") +
-                '}';
+        return "Aluno: " +
+                "Id: " + id +
+                " Nome: " + nome +
+                ", Idade: " + idade +
+                ", Plano: " + (plano != null ? plano.getNome() : "Nenhum");
     }
 }
