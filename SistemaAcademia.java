@@ -8,7 +8,8 @@ public class SistemaAcademia {
     static ArrayList<Plano> planos = new ArrayList<>();
 
     public static void main(String[] args) {
-
+        
+        // Cria alguns planos iniciais
         planos.add(new Plano("p1", "Básico", "Mensal", 100, true));
         planos.add(new Plano("p2", "Premium", "Anual", 1000, true));
 
@@ -29,7 +30,8 @@ public class SistemaAcademia {
             }
         }
     }
-
+    
+    // Menu Administrador
     static void menuAdministrador() {
         while(true) {
             System.out.println("\n--- Menu Administrador ---");
@@ -59,6 +61,7 @@ public class SistemaAcademia {
         }
     }
 
+    // Menu Instrutor
     static void menuInstrutor() {
         while(true) {
             System.out.println("\n--- Menu Instrutor ---");
@@ -74,6 +77,7 @@ public class SistemaAcademia {
         }
     }
 
+    // Menu Aluno
     static void menuAluno() {
         System.out.println("Digite seu ID:");
         String id = scanner.nextLine();
@@ -98,6 +102,7 @@ public class SistemaAcademia {
             System.out.println("Nenhuma ficha atribuída.");
     }
 
+    // Métodos para Administrador
     static void cadastrarAluno() {
         System.out.println("ID do aluno:");
         String id = scanner.nextLine();
@@ -210,6 +215,7 @@ static void excluirPlano() {
     System.out.println("Plano excluído.");
 }
 
+// Consultas com filtros simples para administrador
 static void consultarAlunos() {
     System.out.println("Filtro: digite nome ou deixe vazio para listar todos:");
     String filtro = scanner.nextLine().toLowerCase();
@@ -234,7 +240,7 @@ static void consultarPlanos() {
     }
 }
 
-
+// Métodos para Instrutor
 static void criarOuAtualizarFicha() {
     System.out.println("ID do aluno para criar/atualizar ficha:");
     String id = scanner.nextLine();
@@ -258,6 +264,7 @@ static void criarOuAtualizarFicha() {
     }
 }
 
+// Métodos auxiliares    
 static Aluno buscarAlunoPorId(String id) {
     for(Aluno a : alunos) {
         if(a.getId().equals(id)) return a;
